@@ -1,237 +1,166 @@
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Pressable,
+  ImageBackground,
+} from 'react-native';
+import React, {useContext} from 'react';
 import m from '../assets/img/landing.jpg';
+import Cargo from '../assets/img/cargo.jpg';
+import {CredentialsContext} from '../components/CredentialsContext';
 
 export default function Landing({navigation}) {
+  const {storedCredentials, setStoredCredentials} =
+    useContext(CredentialsContext);
+  console.log(storedCredentials);
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          flexDirection: 'column',
-        },
-      ]}>
+    <ImageBackground
+      source={Cargo}
+      style={{
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+       
+      }}>
       <View
-        style={{
-          flex: 1,
-          alignItems: 'flex-end',
-        }}>
-        <Text
+        style={[
+          styles.container,
+          {
+            flexDirection: 'column',
+          },
+        ]}>
+        <View
           style={{
-            fontSize: 16,
-            color: '#000',
-            fontWeight: '600',
-            marginTop: 20,
+            flex: 1,
+            alignItems: 'flex-end',
           }}>
-          Skip
-        </Text>
-      </View>
-      <View
-        style={{
-          flex: 8,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Image
-          source={m}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Pages', {screen: 'Home'})}
+            style={{
+              backgroundColor: '#1C3C62',
+              // borderRadius: 30,
+              borderTopLeftRadius: 20,
+              borderBottomLeftRadius: 20,
+              marginTop: 20,
+              width: 70,
+              alignItems: 'center',
+              shadowColor: '#C4D1D5',
+              shadowOffset: {width: 0, height: 5},
+              shadowOpacity: 0.34,
+              shadowRadius: 6.27,
+              elevation: 10,
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                color: '#fff',
+                fontWeight: '600',
+                padding: 5,
+                // marginTop: 20,
+              }}>
+              Skip
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
           style={{
-            width: 400,
-            height: 500,
-          }}
-        />
-      </View>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginTop: 20,
-          flexDirection: 'row',
-          width: '100%',
-          paddingHorizontal: 20,
-        }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Auth', {screen: 'Login'})}
-          style={{
-            backgroundColor: '#38786D',
-            padding: 10,
-            borderRadius: 10,
-            marginTop: 20,
-            width: 160,
+            flex: 5,
             alignItems: 'center',
-            shadowColor: '#38786D',
-            shadowOffset: {
-              width: 0,
-              height: 5,
-            },
-            shadowOpacity: 0.34,
-            shadowRadius: 6.27,
-            elevation: 10,
+            justifyContent: 'center',
+            width:'100%',
           }}>
           <Text
             style={{
+              fontSize: 30,
               color: '#fff',
-              fontSize: 16,
               fontWeight: 'bold',
             }}>
-            Login
+            Welcom to MFN
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Auth', {screen: 'Register'})}
-          style={{
-            backgroundColor: '#38786D',
-            padding: 10,
-            borderRadius: 10,
-            marginTop: 20,
-            width: 160,
-            alignItems: 'center',
-            shadowColor: '#38786D',
-            shadowOffset: {
-              width: 0,
-              height: 5,
-            },
-            shadowOpacity: 0.34,
-            shadowRadius: 6.27,
-            elevation: 10,
-          }}>
           <Text
             style={{
+              fontSize: 20,
               color: '#fff',
-              fontSize: 16,
               fontWeight: 'bold',
             }}>
-            Register
+            We are here to help you
           </Text>
-        </TouchableOpacity>
+        </View>
+        {storedCredentials ? (
+          <View style={{flex: 1}} />
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginTop: 20,
+              flexDirection: 'row',
+              width: '100%',
+              paddingHorizontal: 20,
+            }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Auth', {screen: 'Login'})}
+              style={{
+                // backgroundColor: '#C4D1D5',
+                borderColor: '#C4D1D5',
+                borderWidth: 1,
+                padding: 10,
+                borderRadius: 30,
+                marginTop: 20,
+                width: 160,
+                alignItems: 'center',
+                shadowColor: '#C4D1D5',
+                shadowOffset: {width: 0, height: 5},
+                shadowOpacity: 0.34,
+                shadowRadius: 6.27,
+                elevation: 10,
+              }}>
+              <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>
+                Loginn
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Auth', {screen: 'Register'})}
+              style={{
+                // backgroundColor: '#C4D1D5',
+                borderColor: '#C4D1D5',
+                borderWidth: 1,
+                padding: 10,
+                borderRadius: 30,
+                marginTop: 20,
+                width: 160,
+                alignItems: 'center',
+                shadowColor: '#C4D1D5',
+                shadowOffset: {width: 0, height: 5},
+                shadowOpacity: 0.34,
+                shadowRadius: 6.27,
+                elevation: 10,
+              }}>
+              <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>
+                Register
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
+    // padding: 20,
+    width:'100%'
+    // backgroundColor: '#1C3C62',
+    
+    // opacity: 0.5,
   },
 });
-{
-  /* <View style={[
-    styles.container,
-    {flexDirection:'row'}
-]}>
-    <View
-    style={{
-        alignItems: 'flex-end',
-        justifyContent: 'flex-start',
-        // marginTop: 20,
-        width: '100%',
-        // backgroundColor: '#38786D',
-        // flex:0
-        }}
-    >
-        <Text>
-            Skip
-        </Text>
-    </View>
-    <View
-    style={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        // marginTop: 20,
-        width: '100%',
-        // backgroundColor: '#38786D',
-        flex:1
-        }}
-    >
-  <Image
-    source={m}
-    style={{
-      width: 300,
-      height: 300,
-    }}
-  />
-  <Text
-    style={{
-      fontSize: 25,
-      fontWeight: 'bold',
-      color: '#38786D',
-    }}>
-    Welcome to MFN
-  </Text>
-  <Text
-    style={{
-      fontSize: 18,
-      color: '#38786D',
-    }}>
-    Your one stop shop for all your medical needs
-  </Text>
-  
-  <View
-    style={{
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginTop: 20,
-      flexDirection: 'row',
-      width: '100%',
-      paddingHorizontal: 20,
-    }}>
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Auth')}
-      style={{
-        backgroundColor: '#38786D',
-        padding: 10,
-        borderRadius: 10,
-        marginTop: 20,
-        width: 160,
-        alignItems: 'center',
-        shadowColor: '#38786D',
-        shadowOffset: {
-          width: 0,
-          height: 5,
-        },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-        elevation: 10,
-      }}>
-      <Text
-        style={{
-          color: '#fff',
-          fontSize: 16,
-          fontWeight: 'bold',
-        }}>
-        Login
-      </Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Pages')}
-      style={{
-        backgroundColor: '#38786D',
-        padding: 10,
-        borderRadius: 10,
-        marginTop: 20,
-        width: 160,
-        alignItems: 'center',
-        shadowColor: '#38786D',
-        shadowOffset: {
-          width: 0,
-          height: 5,
-        },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-        elevation: 10,
-      }}>
-      <Text
-        style={{
-          color: '#fff',
-          fontSize: 16,
-          fontWeight: 'bold',
-        }}>
-        Skip
-      </Text>
-    </TouchableOpacity>
-  </View>
-  </View>
-</View> */
-}
