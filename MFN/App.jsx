@@ -22,7 +22,7 @@ function App() {
 
   const checkLoginCredentials =  () => {
     AsyncStorage.getItem('token')
-    AsyncStorage.getItem('user')
+    // AsyncStorage.getItem('user')
     .then(result => {
       if (result !== null) {
         setStoredCredentials(JSON.parse(result));
