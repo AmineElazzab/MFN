@@ -8,16 +8,16 @@ const asyncHandler = require('express-async-handler');
 // register user
 const registerUser = asyncHandler(async (req, res) => {
     const
-        { companyName, Founder, email, password, phone, address, ICE } = req.body;
+        { companyName, founder, email, password, phone, address,location } = req.body;
     if
         (
         !companyName ||
-        !Founder ||
+        !founder ||
         !email ||
         !password ||
         !phone ||
         !address ||
-        !ICE
+        !location
     ) {
         res.status(400);
         throw new Error('Please fill all the fields');
@@ -27,21 +27,32 @@ const registerUser = asyncHandler(async (req, res) => {
     const userExists = await User.findOne({ email });
     if (userExists) {
         res.status(400);
-        throw new Error('User already exists');
+        throw new Error('Company email already exists');
     }
+
+    //check if ICE alreqdy exists
+    // const iceExists = await User.findOne({ ICE });
+    // if (iceExists) {
+    //     res.status(400);
+    //     throw new Error('ICE already exists');
+    // }
 
     //hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    //generat ICE
+    const ICE = Math.floor(100000 + Math.random() * 900000);
+
     //create user
     const user = await User.create({
         companyName,
-        Founder,
+        founder,
         email,
         password: hashedPassword,
         phone,
         address,
+        location,
         ICE,
     });
 
@@ -49,10 +60,11 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(201).json({
             _id: user._id,
             companyName: user.companyName,
-            Founder: user.Founder,
+            founder: user.founder,
             email: user.email,
             phone: user.phone,
             address: user.address,
+            location: user.location,
             ICE: user.ICE,
             token: generateToken(user._id),
             message: "User created successfully"
@@ -85,7 +97,7 @@ const loginUser = asyncHandler(async (req, res) => {
         res.json({
             _id: user._id,
             companyName: user.companyName,
-            Founder: user.Founder,
+            founder: user.founder,
             email: user.email,
             phone: user.phone,
             address: user.address,
