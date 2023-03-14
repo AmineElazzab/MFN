@@ -21,32 +21,29 @@ export default function LoginSecrin({navigation}) {
   const {storedCredentials, setStoredCredentials} =
     useContext(CredentialsContext);
 
-  const {mutate, isLoadig} = useMutation(LoginUser, {
+  const {mutate, isLoading} = useMutation(LoginUser, {
     onSuccess: data => {
       persisLogin(data);
-      navigation.navigate('Home');
+      navigation.navigate('Pages', {screen: 'Home'});
     },
     onError: error => {
       Alert.alert('Error', error.response.data.message);
     },
     isLoadig: setTimeout(() => {
-      return isLoadig;
+      return isLoading;
     }, 1000),
   });
 
   const persisLogin = async data => {
-    AsyncStorage.setItem('token', JSON.stringify(data.token));
-    AsyncStorage.setItem('user', JSON.stringify(data.fullName))
+    AsyncStorage.setItem('token', JSON.stringify(data.token))
       .then(() => {
         setStoredCredentials(data.token);
-        setStoredCredentials(data.fullName);
-        console.log(data.fullName);
       })
       .catch(error => {
         console.error(error);
       });
   };
-
+  console.log(storedCredentials);
   return (
     <View style={styles.container}>
       <View
@@ -91,22 +88,16 @@ export default function LoginSecrin({navigation}) {
         style={styles.input}
         placeholder="Email"
         placeholderTextColor="#aaaaaa"
-        onChangeText={email => setEmail(email)}
+        onChangeText={text => setEmail(text)}
         value={email}
-        underlineColorAndroid="transparent"
-        autoCapitalize="none"
-        autoCorrect={false}
       />
       <TextInput
         style={styles.input}
         placeholderTextColor="#aaaaaa"
         secureTextEntry
         placeholder="Password"
-        onChangeText={password => setPassword(password)}
+        onChangeText={text => setPassword(text)}
         value={password}
-        underlineColorAndroid="transparent"
-        autoCapitalize="none"
-        autoCorrect={false}
       />
       <Pressable
         onPress={() => mutate({email, password})}
@@ -129,12 +120,11 @@ export default function LoginSecrin({navigation}) {
         {isLoadig ? 'Loading...' : 'Not Loading'}
       </Text> */}
       <Text
-      onPress={
-        () => navigation.navigate('Pages',{
-          screen: 'Landing',
-        })
-      }
-      >
+        onPress={() =>
+          navigation.navigate('Pages', {
+            screen: 'Landing',
+          })
+        }>
         Back
       </Text>
     </View>
