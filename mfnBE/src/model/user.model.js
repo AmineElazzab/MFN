@@ -3,41 +3,46 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = mongoose.Schema(
     {
-        companyName:{
+        companyName: {
             type: String,
             required: true,
         },
-        Founder:{
+        founder: {
             type: String,
             required: true,
         },
-        email:{
+        email: {
             type: String,
             required: true,
             unique: true,
         },
-        password:{
+        password: {
             type: String,
             required: true,
         },
-        phone:{
-            type: String,
+        phone: {
+            type: Number,
             required: true,
         },
         address:
-            {
-                Latitude :{
-                    type: Number,
-                    required: true,
-                },
-                Longitude:{
-                    type: Number,
-                    required: true,
-                }
-            },
-        ICE:{
-            type: Number,
+        {
+            type: String,
             required: true,
+        },
+        location:
+        {
+            Latitude: {
+                type: Number,
+                required: true,
+            },
+            Longitude: {
+                type: Number,
+                required: true,
+            }
+        },
+        ICE: {
+            type: Number,
+            unique: true,
         },
     },
     {
