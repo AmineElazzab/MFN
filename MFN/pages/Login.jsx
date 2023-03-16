@@ -43,7 +43,7 @@ export default function LoginSecrin({navigation}) {
         console.error(error);
       });
   };
-  console.log(storedCredentials);
+  // console.log(storedCredentials);
   return (
     <View style={styles.container}>
       <View
@@ -117,13 +117,11 @@ export default function LoginSecrin({navigation}) {
                     onPress={() => onResetPasswordPress()} style={styles.footerLink}>Forgot Password?</Text> */}
       </View>
       {/* <Text>
-        {isLoadig ? 'Loading...' : 'Not Loading'}
+        {isLoading ? 'Loading...' : 'Not Loading'}
       </Text> */}
       <Text
         onPress={() =>
-          navigation.navigate('Pages', {
-            screen: 'Landing',
-          })
+          navigation.navigate('Landing')
         }>
         Back
       </Text>

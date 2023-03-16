@@ -32,6 +32,7 @@ function Profile() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {storedCredentials && <Text>Welcome, {storedCredentials.founder}!</Text>}
+      {/* <Text>Email: {storedCredentials.email}</Text> */}
       {isTokenStored ? (
         <Button title="Logout" onPress={handleLogout} />
       ) : (

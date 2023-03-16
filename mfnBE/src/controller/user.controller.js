@@ -8,7 +8,7 @@ const asyncHandler = require('express-async-handler');
 // register user
 const registerUser = asyncHandler(async (req, res) => {
     const
-        { companyName, founder, email, password, phone, address,location } = req.body;
+        { companyName, founder, email, password, phone, address, location } = req.body;
     if
         (
         !companyName ||
@@ -16,7 +16,7 @@ const registerUser = asyncHandler(async (req, res) => {
         !email ||
         !password ||
         !phone ||
-        !address ||
+        !address ,
         !location
     ) {
         res.status(400);
@@ -29,13 +29,6 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error('Company email already exists');
     }
-
-    //check if ICE alreqdy exists
-    // const iceExists = await User.findOne({ ICE });
-    // if (iceExists) {
-    //     res.status(400);
-    //     throw new Error('ICE already exists');
-    // }
 
     //hash password
     const salt = await bcrypt.genSalt(10);
@@ -120,7 +113,7 @@ const getUserById = asyncHandler(async (req, res) => {
 //get all users
 const getAllUsers = asyncHandler(async (req, res) => {
     const users = await User.find({});
-    res.status(200).json(users);
+    res.json(users);
 }
 );
 

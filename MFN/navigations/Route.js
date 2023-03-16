@@ -8,6 +8,8 @@ import Pages from "./Pages";
 // import OnboardingScreen from "../components/Onboarding";
 import Landing from "../pages/Landing";
 import Home from "../pages/Home";
+import MapScreen from "../pages/MapScreen";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +40,11 @@ function Routes() {
                                         headerShown: false
                                     }}
                                 />
+                                <Stack.Screen
+                                    name="Map"
+                                    component={MapScreen}
+                                />
+
                                 {!storedCredentials && (
 
 
